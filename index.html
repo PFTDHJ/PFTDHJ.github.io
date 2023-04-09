@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+  <title>鸡鸭鹅计算器</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+        type="text/css">
+  <link href="quasar.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="q-app">
+  <div>
+    <q-tabs
+      v-model="tab"
+      class="text-primary"
+    >
+      <q-tab name="input" label="信息录入"></q-tab>
+      <q-tab name="home" label="数据统计"></q-tab>
+    </q-tabs>
+  </div>
+  <q-tab-panels
+    v-model="tab"
+    animated
+    swipeable
+    transition-prev="jump-left"
+    transition-next="jump-right"
+  >
+    <q-tab-panel name="input">
+      <div class="q-gutter-sm full-height">
+        <div class="text-bold text-h6">
+          输入文本
+        </div>
+        <q-input type="textarea" v-model="text" input-style="resize: none" dense clearable outlined></q-input>
+        <div class="text-bold text-h6">
+          当前识别结果
+        </div>
+        <div>
+          <q-table :columns="columns" :rows="rows"></q-table>
+        </div>
+        <div class="text-center">
+          <q-btn push color="primary" @click="submit">
+            确认并提交
+          </q-btn>
+        </div>
+
+      </div>
+    </q-tab-panel>
+
+    <q-tab-panel name="home">
+
+      <div class="row items-center q-mb-md">
+        <div class="text-bold text-h6">
+          当前总计
+        </div>
+        <q-space></q-space>
+        <q-btn flat color="negative" @click="clear">清空统计</q-btn>
+        <q-space></q-space>
+        <q-btn push @click="onExport">导出EXCEL</q-btn>
+      </div>
+      <div>
+        <q-table :columns="columns" :rows="sums"></q-table>
+      </div>
+    
+    </q-tab-panel>
+
+  </q-tab-panels>
+  <q-inner-loading :showing="loading">
+    <q-spinner-gears size="50px" color="primary" />
+  </q-inner-loading>
+</div>
+<script src="vue.global.prod.js"></script>
+<script src="quasar.umd.prod.js"></script>
+<script src="zh-CN.umd.prod.js"></script>
+<script src="xlsx.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
